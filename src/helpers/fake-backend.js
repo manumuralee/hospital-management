@@ -155,14 +155,14 @@ export function configureFakeBackend() {
                 }
 
                 // add patient
-                if (url.endsWith('/patients/addPatient') && opts.method === 'POST') {
+                if (url.endsWith('/patients/add') && opts.method === 'POST') {
                     // get new patient object from post body
                     let newPatients = JSON.parse(opts.body);
 
                     // validation
-                    let duplicatePatients = patients.filter(patient => { return patient.emailAddress === newPatients.emailAddress; }).length;
+                    let duplicatePatients = patients.filter(patient => { return patient.id === newPatients.id; }).length;
                     if (duplicatePatients) {
-                        reject('Patientsname "' + newPatients.emailAddress + '" is already taken');
+                        reject('Patientsname "' + newPatients.id + '" is already taken');
                         return;
                     }
 

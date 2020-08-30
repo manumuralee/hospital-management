@@ -1,13 +1,13 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { history } from './helpers';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { alertActions } from './actions';
 import { PrivateRoute } from './components';
-import { HomePage, AddPatientPage } from './Pages';
-import { LoginPage } from './Pages';
-import { RegisterPage } from './Pages';
+import { history } from './helpers';
+import { AddPatientPage, HomePage, LoginPage, RegisterPage, UsersPage } from './Pages';
+import Layout from './Layouts/Layout';
+
 
 class App extends React.Component {
     constructor(props) {
@@ -15,12 +15,26 @@ class App extends React.Component {
 
         history.listen((location, action) => {
             // clear alert on location change
-            // this.props.clearAlerts();
+            //this.props.clearAlerts();
         });
     }
 
-    render() {
-        const { alert } = this.props;
+    render() {        
+        const { alert, loggedIn } = this.props;
+        let routes = (
+            <Router history={history}>
+                <Switch>
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/register" component={RegisterPage} />
+                    <Route path="/logout" component={LoginPage} />
+                    
+                    <PrivateRoute exact path="/" component={HomePage} />
+                    <Route exact path="/users" component={UsersPage} />
+                    <Route exact path="/patients/add" component={AddPatientPage} />
+                    <Route exact path="/patients/edit/:id" component={AddPatientPage} />
+                </Switch>
+            </Router>
+        );
         return (
             <div className="jumbotron">
                 <div className="container">
@@ -28,15 +42,10 @@ class App extends React.Component {
                         {alert && alert.message &&
                             <div className={`alert ${alert.type}`}>{alert.message}</div>
                         }
-                        <Router history={history}>
-                            <Switch>
-                                <PrivateRoute exact path="/" component={HomePage} />
-                                <Route path="/login" component={LoginPage} />
-                                <Route path="/register" component={RegisterPage} />
-                                <Route path="/addPatient" component={AddPatientPage} />
-                                <Redirect from="*" to="/" />
-                            </Switch>
-                        </Router>
+                        {console.log("LOGGEDIN" + loggedIn)}
+                        {
+                            true ? <Layout>{routes}</Layout> : routes
+                        }
                     </div>
                 </div>
             </div>
@@ -46,7 +55,8 @@ class App extends React.Component {
 
 function mapState(state) {
     const { alert } = state;
-    return { alert };
+    const { loggedIn } = state.authentication;
+    return { alert, loggedIn };
 }
 
 const actionCreators = {

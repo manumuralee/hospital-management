@@ -1,10 +1,11 @@
 import { authHeader } from '../helpers';
 
-export const patientService = {     
+export const patientService = {
     addPatient,
     getAllPatients,
     getPatientById,
-    updatePatient    
+    updatePatient,
+    delete: _delete
 };
 
 
@@ -33,7 +34,7 @@ function addPatient(patient) {
         body: JSON.stringify(patient)
     };
 
-    return fetch(`/patients/addPatient`, requestOptions).then(handleResponse);
+    return fetch(`/patients/add`, requestOptions).then(handleResponse);
 }
 
 function updatePatient(patient) {
@@ -44,6 +45,15 @@ function updatePatient(patient) {
     };
 
     return fetch(`/patients/${patient.id}`, requestOptions).then(handleResponse);;
+}
+
+function _delete(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(`/patients/${id}`, requestOptions).then(handleResponse);
 }
 
 

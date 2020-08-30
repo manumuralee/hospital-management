@@ -1,61 +1,72 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { patientActions } from '../actions';
 
-import { userActions } from '../actions';
-import BootstrapNavbar from '../BootstrapNavbar';
 
 class HomePage extends React.Component {
     componentDidMount() {
-        this.props.getUsers();
+        this.props.getAllPatients();
     }
 
     handleDeleteUser(id) {
-        return (e) => this.props.deleteUser(id);
+        return (e) => this.props.deletePatient(id);
     }
 
     render() {
-        const { user, users } = this.props;
+        const { user, patients } = this.props;
+        console.log(patients);
         return (
-            <div class="container">               
-                <h2>Add Patient</h2>
-                <div className="col-md-6 col-md-offset-3">
-                    <h2>Hi {user.firstName}!</h2>                
-                    <h3>All registered users:</h3>
-                    {users.loading && <em>Loading users...</em>}
-                    {users.error && <span className="text-danger">ERROR: {users.error}</span>}
-                    {users.items &&
-                        <ul>
-                            {users.items.map((user, index) =>
-                                <li key={user.id}>
-                                    {user.firstName + ' ' + user.lastName}
-                                    {
-                                        user.deleting ? <em> - Deleting...</em>
-                                        : user.deleteError ? <span className="text-danger"> - ERROR: {user.deleteError}</span>
-                                        : <span> - <a onClick={this.handleDeleteUser(user.id)}>Delete</a></span>
-                                    }
-                                </li>
-                            )}
-                        </ul>
-                    }                
+            <div>
+                <div className="container">
+                    <div className="py-4">
+                        <h2>Patient List</h2>
+                        {patients.loading && <em>Loading patients...</em>}
+                        {patients.error && <span className="text-danger">ERROR: {patients.error}</span>}
+                        {patients.items && 
+                        <table className="table border shadow">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">age</th>
+                                    <th scope="col">Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {patients.items.map((patient, index) => (
+                                    <tr>
+                                        <th scope="row">{index + 1}</th>
+                                        <td>{patient.firstName + ' ' + patient.surName}</td>
+                                        <td>{patient.age}</td>
+                                        <td>{patient.email}</td>
+                                        <td>
+                                            <Link className="btn btn-primary mr-2" to={`/patients/${patient.id}`}>View</Link>
+                                            <Link className="btn btn-outline-primary mr-2" to={`/patients/edit/${patient.id}`}>Edit</Link>                                           
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>}
+                    </div>
                 </div>
-                <Link to="/addPatient" className="btn btn-link">Add Patient</Link>
-                <Link to="/login" className="btn btn-link">Logout</Link>
             </div>
         );
     }
 }
 
 function mapState(state) {
-    const { users, authentication } = state;
+    const { patients, authentication } = state;
     const { user } = authentication;
-    return { user, users };
+    return { user, patients };
 }
 
 const actionCreators = {
-    getUsers: userActions.getAll,
-    deleteUser: userActions.delete
+    getAllPatients: patientActions.getAllPatients,
+    deletePatient: patientActions.delete
 }
 
 const connectedHomePage = connect(mapState, actionCreators)(HomePage);
 export { connectedHomePage as HomePage };
+
