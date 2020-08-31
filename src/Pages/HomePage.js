@@ -29,14 +29,14 @@ class HomePage extends React.Component {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Patient Name</th>
-                                    <th scope="col">age</th>
+                                    <th scope="col">Age</th>
                                     <th scope="col">Email</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {patients.items.map((patient, index) => (
-                                    <tr>
+                                    <tr key={patient.id}>
                                         <th scope="row">{index + 1}</th>
                                         <td>{patient.firstName + ' ' + patient.surName}</td>
                                         <td>{patient.age}</td>

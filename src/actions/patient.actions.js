@@ -1,7 +1,9 @@
 import { patientConstants } from '../constants';
-import { patientService } from '../services';
 import { alertActions } from './';
-// import { history } from '../helpers';
+import axios from 'axios';
+import { history } from '../helpers';
+
+const json_server_url = 'http://localhost:3004';
 
 export const patientActions = {
     addPatient,
@@ -15,11 +17,11 @@ function addPatient(patient) {
     return dispatch => {
         dispatch(request(patient));
 
-        patientService.addPatient(patient)
+        axios.post(json_server_url + '/patients',  patient)
             .then(
-                patient => {
-                    dispatch(success(patient));
-                    // history.push('/login');
+                res => {
+                    dispatch(success());
+                     history.push('/');
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
@@ -38,10 +40,14 @@ function getAllPatients() {
     return dispatch => {
         dispatch(request());
 
-        patientService.getAllPatients()
+        axios.get(json_server_url + '/patients')
             .then(
-                patients => dispatch(success(patients)),
-                error => dispatch(failure(error))
+                patients => {
+                    dispatch(success(patients.data))
+                },
+                error => {
+                    dispatch(failure(error))
+                }
             );
     };
 
@@ -54,10 +60,14 @@ function getPatientById(id) {
     return dispatch => {
         dispatch(request(id));
 
-        patientService.getPatientById(id)
+        axios.get(json_server_url + '/patients/' + id)
             .then(
-                patient => dispatch(success(patient)),
-                error => dispatch(failure(error))
+                patient => {
+                    dispatch(success(patient.data))
+                },
+                error => {
+                    dispatch(failure(error))
+                }
             );
     };
 
@@ -70,7 +80,7 @@ function _delete(id) {
     return dispatch => {
         dispatch(request(id));
 
-        patientService.delete(id)
+        axios.delete(json_server_url + '/patients/' + id)
             .then(
                 patient => {
                     dispatch(success(id));

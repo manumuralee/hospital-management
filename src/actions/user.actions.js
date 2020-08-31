@@ -1,7 +1,10 @@
 import { userConstants } from '../constants';
 import { history } from '../helpers';
-import { userService } from '../services';
 import { alertActions } from './';
+import axios from 'axios';
+import _ from 'lodash';
+
+const json_server_url = 'http://localhost:3004';
 
 export const userActions = {
     login,
@@ -14,12 +17,14 @@ export const userActions = {
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
+        const user = { username, password };
 
-        userService.login(username, password)
+        axios.get(json_server_url + '/users?username=' + username + '&password=' + password)
             .then(
                 user => {
-                    dispatch(success(user));
-                    history.push('/login');
+                    dispatch(success(user.data));
+                    localStorage.setItem('user', JSON.stringify(user.data));
+                    history.push('/');
                 },
                 error => {
                     dispatch(failure(error));
@@ -34,26 +39,46 @@ function login(username, password) {
 }
 
 function logout() {
-    userService.logout();
+    localStorage.removeItem('user');
     return { type: userConstants.LOGOUT };
 }
 
 function register(user) {
     return dispatch => {
         dispatch(request(user));
+        if (user && _.trim(user.username) !== "") {
+            axios.get(json_server_url + '/users?username=' + user.username)
+                .then(
+                    res => {
+                        if (res === null || res.data === null || res.data.length <= 0) {
+                            axios.post(json_server_url + '/users', user)
+                                .then(
+                                    res => {
+                                        dispatch(success());
+                                        history.push('/login');
+                                        dispatch(alertActions.success('Registration successful'));
+                                    },
+                                    error => {
+                                        dispatch(failure(error));
+                                        dispatch(alertActions.error(error));
+                                    }
+                                );
+                        } else {
+                            dispatch(alertActions.error('User Name Already Exists!'));
+                            dispatch(failure('User Name Already Exists!'));
+                        }
 
-        userService.register(user)
-            .then(
-                user => {
-                    dispatch(success());
-                    history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
-                },
-                error => {
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
-                }
-            );
+                    },
+                    error => {
+                        dispatch(failure(error));
+                        dispatch(alertActions.error(error));
+                    }
+                );
+        } else {
+            dispatch(alertActions.error('Invalid Use Name'));
+            dispatch(failure('Invalid Use Name'));
+        }
+
     };
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
@@ -65,10 +90,14 @@ function getAll() {
     return dispatch => {
         dispatch(request());
 
-        userService.getAll()
+        axios.get(json_server_url + '/users')
             .then(
-                users => dispatch(success(users)),
-                error => dispatch(failure(error))
+                res => {
+                    dispatch(success(res.data))
+                },
+                error => {
+                    dispatch(failure(error))
+                }
             );
     };
 
@@ -82,7 +111,7 @@ function _delete(id) {
     return dispatch => {
         dispatch(request(id));
 
-        userService.delete(id)
+        axios.delete(json_server_url + '/users/' + id)
             .then(
                 user => {
                     dispatch(success(id));

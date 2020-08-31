@@ -11,11 +11,11 @@ class HospitalNavbar extends React.Component {
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+                        <Navbar bg="primary" variant="dark" expand="lg" sticky="top"  >
                             <Navbar.Brand href="#home" className="p-4">Hospital Management</Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="ml-auto">
+                                <Nav className="mr-auto">
                                     <Nav.Link href="/">{loggedIn ? 'Home' : 'Login'}</Nav.Link>
                                     {loggedIn && <Nav.Link href="/users">Users</Nav.Link>}
                                     {loggedIn && <Nav.Link href="/patients/add">Add Patient</Nav.Link>}

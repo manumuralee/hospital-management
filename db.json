@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "firstName": "Manu",
+      "lastName": "Murali",
+      "username": "manumurali",
+      "password": "password",
+      "id": 2
+    }
+  ],
+  "patients": [
+    {
+      "id": 1,
+      "gender": "M",
+      "firstName": "MM",
+      "surName": "AA",
+      "age": "22",
+      "meritialStatus": "",
+      "dob": "",
+      "emailAddress": "mmm@Mail.com",
+      "phoneNumber": "",
+      "nationality": "",
+      "stateId": "",
+      "occupation": "",
+      "address": "",
+      "kinName": "",
+      "kinRelation": "",
+      "kinPhoneNumber": "",
+      "kinEmailAddress": "",
+      "kinOccupation": "",
+      "kinAddress": ""
+    },
+    {
+      "id": "P20200831015632",
+      "gender": "F",
+      "firstName": "GGGGGGG",
+      "surName": "MMMMMM",
+      "age": "44",
+      "meritialStatus": "Married",
+      "dob": "2020-08-26",
+      "emailAddress": "mmm@mail.com",
+      "phoneNumber": "3453453457",
+      "nationality": "India",
+      "stateId": "FFFF",
+      "occupation": "Occupation",
+      "address": "ADDDDD",
+      "kinName": "KKKK NN",
+      "kinRelation": "K Relation",
+      "kinPhoneNumber": "3534534534",
+      "kinEmailAddress": "mmmmm@mail.com",
+      "kinOccupation": "sdfsd",
+      "kinAddress": "sdfsdfsd"
+    }
+    
+  ]
+}
