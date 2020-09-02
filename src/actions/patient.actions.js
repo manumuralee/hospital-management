@@ -9,6 +9,9 @@ export const patientActions = {
     addPatient,
     getAllPatients,
     getPatientById,
+    onPatientInputChange,
+    loadPatientDetails,
+    editPatient,
     delete: _delete
 };
 
@@ -17,11 +20,11 @@ function addPatient(patient) {
     return dispatch => {
         dispatch(request(patient));
 
-        axios.post(json_server_url + '/patients',  patient)
+        axios.post(json_server_url + '/patients', patient)
             .then(
                 res => {
                     dispatch(success());
-                     history.push('/');
+                    history.push('/');
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
@@ -62,8 +65,8 @@ function getPatientById(id) {
 
         axios.get(json_server_url + '/patients/' + id)
             .then(
-                patient => {
-                    dispatch(success(patient.data))
+                res => {
+                    dispatch(success(res.data))
                 },
                 error => {
                     dispatch(failure(error))
@@ -94,4 +97,43 @@ function _delete(id) {
     function request(id) { return { type: patientConstants.DELETE_REQUEST, id } }
     function success(id) { return { type: patientConstants.DELETE_SUCCESS, id } }
     function failure(id, error) { return { type: patientConstants.DELETE_FAILURE, id, error } }
+
 }
+
+
+function editPatient(patient) {
+    return dispatch => {
+        dispatch(request(patient));      
+        axios.put(json_server_url + '/patients/' + patient.id, patient)
+            .then(
+                res => {                   
+                    dispatch(success());
+                    history.push('/');
+                    dispatch(alertActions.success('Edit successful'));
+                },
+                error => {                   
+                    dispatch(failure(error));
+                    dispatch(alertActions.error(error));
+                }
+            );       
+    };
+
+    function request(patient) { return { type: patientConstants.EDIT_PATIENT_REQUEST, patient } }
+    function success(patient) { return { type: patientConstants.EDIT_PATIENT_SUCCESS, patient } }
+    function failure(error) { return { type: patientConstants.EDIT_PATIENT_FAILURE, error } }
+}
+
+function onPatientInputChange(name, value) {
+    return {
+        type: patientConstants.INPUT_VALUE_CHANGE,
+        name: name,
+        value: value
+    }
+}
+function loadPatientDetails(patient) {
+    return {
+        type: patientConstants.LOAD_PATIENT_DETAILS,
+        patient: patient
+    }
+}
+

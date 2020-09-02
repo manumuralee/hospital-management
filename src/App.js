@@ -31,7 +31,8 @@ class App extends React.Component {
                     <PrivateRoute exact path="/" component={HomePage} />
                     <Route exact path="/users" component={UsersPage} />
                     <Route exact path="/patients/add" component={AddPatientPage} />
-                    <Route exact path="/patients/edit/:id" component={AddPatientPage} />
+                    <Route exact path="/patients/:mode/:id" component={AddPatientPage} />
+                    <Route exact path="/patients/:mode/:id" component={AddPatientPage}  />
                 </Switch>
             </Router>
         );

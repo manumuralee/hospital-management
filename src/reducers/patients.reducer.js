@@ -1,7 +1,31 @@
 import { patientConstants } from "../constants";
 
+const initialState = {
+  patient: {
+    id: '',
+    gender: '',
+    firstName: '',
+    surName: '',
+    age: '',
+    meritialStatus: '',
+    dob: '',
+    emailAddress: '',
+    phoneNumber: '',
+    nationality: '',
+    stateId: '',
+    occupation: '',
+    address: '',
+    kinName: '',
+    kinRelation: '',
+    kinPhoneNumber: '',
+    kinEmailAddress: '',
+    kinOccupation: '',
+    kinAddress: ''
+  }
+}
 
-export function patients(state = {}, action) {
+
+export function patients(state = initialState, action) {
   switch (action.type) {
     case patientConstants.GETALL_PATIENT_REQUEST:
       return {
@@ -12,6 +36,19 @@ export function patients(state = {}, action) {
         items: action.patients
       };
     case patientConstants.GETALL_PATIENT_FAILURE:
+      return {
+        error: action.error
+      };
+    case patientConstants.GET_PATIENT_REQUEST:
+      return {
+        loading: true
+      };
+    case patientConstants.GET_PATIENT_SUCCESS:
+      action.patient.hasData = true;
+      return {
+        patient: action.patient
+      };
+    case patientConstants.GET_PATIENT_FAILURE:
       return {
         error: action.error
       };
@@ -45,6 +82,23 @@ export function patients(state = {}, action) {
           return patient;
         })
       };
+    case patientConstants.INPUT_VALUE_CHANGE:
+      return {
+        ...state,
+        patient: {
+          ...state.patient,
+          [action.name]: [action.value]
+        }
+      }
+    case patientConstants.LOAD_PATIENT_DETAILS: {
+      return {
+        ...state,
+        patient: {
+          ...state.patient,
+          ...action.patient
+        }
+      }
+    }
     default:
       return state
   }
