@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class HospitalNavbar extends React.Component {
 
     render() {
-        const { loggedIn } = this.props;
+        const { loggedIn, user } = this.props;
         return (
             <div>
                 <div className="row">
@@ -18,7 +18,10 @@ class HospitalNavbar extends React.Component {
                                 <Nav className="mr-auto">
                                     <Nav.Link href="/">{loggedIn ? 'Home' : 'Login'}</Nav.Link>
                                     {loggedIn && <Nav.Link href="/users">Users</Nav.Link>}
-                                    {loggedIn && <Nav.Link href="/patients/add">Add Patient</Nav.Link>}
+                                    {loggedIn && <Nav.Link href="/patients/add">Add Patient</Nav.Link>}                                    
+                                </Nav>
+                                <Nav>
+                                    {loggedIn && user && user[0] && <Nav.Link href="/">{user[0].firstName + ' ' + user[0].lastName}</Nav.Link>}
                                     {loggedIn && <Nav.Link href="/logout">Logout</Nav.Link>}
                                 </Nav>
                             </Navbar.Collapse>
@@ -30,8 +33,9 @@ class HospitalNavbar extends React.Component {
     }
 }
 function mapState(state) {
-    const { loggedIn } = state.authentication;
-    return { loggedIn };
+    const { authentication } = state;
+    const { loggedIn, user } = authentication;
+    return { loggedIn, user };
 }
 export default connect(mapState)(HospitalNavbar);
 
