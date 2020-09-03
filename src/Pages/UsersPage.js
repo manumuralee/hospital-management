@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { userActions } from '../actions';
+
 
 
 class UsersPage extends React.Component {
@@ -17,7 +16,7 @@ class UsersPage extends React.Component {
     render() {
         const { user, users } = this.props;
         return (
-            <div class="container">
+            <div className="container">
                 <h2>All registered users</h2>
                 {users.loading && <em>Loading users...</em>}
                 {users.error && <span className="text-danger">ERROR: {users.error}</span>}
@@ -33,16 +32,16 @@ class UsersPage extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.items.map((user, index) => (
-                                <tr key={user.id}>
+                            {users.items.map((userRow, index) => (
+                                <tr key={userRow.id}>
                                     <th scope="row">{index + 1}</th>
-                                    <td>{user.firstName + ' ' + user.lastName}</td>
-                                    <td>{user.username}</td>
+                                    <td>{userRow.firstName + ' ' + userRow.lastName}</td>
+                                    <td>{userRow.username}</td>
                                     <td>
                                         {
-                                            user.deleting ? <em> - Deleting...</em>
-                                                : user.deleteError ? <span className="text-danger"> - ERROR: {user.deleteError}</span>
-                                                    : <span><a onClick={this.handleDeleteUser(user.id)}>Delete</a></span>
+                                            userRow.deleting ? <em> - Deleting...</em>
+                                                : userRow.deleteError ? <span className="text-danger"> - ERROR: {userRow.deleteError}</span>
+                                        : <span>{user && user[0] && user[0].username  !== userRow.username && <a onClick={this.handleDeleteUser(user.id)}>Delete</a>}</span>
                                         }
                                     </td>
                                 </tr>

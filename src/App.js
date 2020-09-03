@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Route, Router, Switch } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import { alertActions } from './actions';
 import { PrivateRoute } from './components';
 import { history } from './helpers';
-import { AddPatientPage, HomePage, LoginPage, RegisterPage, UsersPage } from './Pages';
 import Layout from './Layouts/Layout';
+import { AddPatientPage, HomePage, LoginPage, RegisterPage, UsersPage } from './Pages';
 
 
 class App extends React.Component {
@@ -19,7 +19,7 @@ class App extends React.Component {
         });
     }
 
-    render() {        
+    render() {
         const { alert, loggedIn } = this.props;
         let routes = (
             <Router history={history}>
@@ -27,12 +27,12 @@ class App extends React.Component {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/logout" component={LoginPage} />
-                    
+
                     <PrivateRoute exact path="/" component={HomePage} />
-                    <Route exact path="/users" component={UsersPage} />
-                    <Route exact path="/patients/add" component={AddPatientPage} />
-                    <Route exact path="/patients/:mode/:id" component={AddPatientPage} />
-                    <Route exact path="/patients/:mode/:id" component={AddPatientPage}  />
+                    <PrivateRoute exact path="/users" component={UsersPage} />
+                    <PrivateRoute exact path="/patients/add" component={AddPatientPage} />
+                    <PrivateRoute exact path="/patients/:mode/:id" component={AddPatientPage} />
+                    <PrivateRoute exact path="/patients/:mode/:id" component={AddPatientPage} />
                 </Switch>
             </Router>
         );

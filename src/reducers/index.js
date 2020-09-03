@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-
+import { alert } from './alert.reducer';
 import { authentication } from './authentication.reducer';
+import { patients } from './patients.reducer';
 import { registration } from './registration.reducer';
 import { users } from './users.reducer';
-import { alert } from './alert.reducer';
-import { patients } from './patients.reducer';
+
 
 const rootReducer = combineReducers({
   authentication,

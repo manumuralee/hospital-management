@@ -130,6 +130,7 @@ function onPatientInputChange(name, value) {
         value: value
     }
 }
+
 function loadPatientDetails(patient) {
     return {
         type: patientConstants.LOAD_PATIENT_DETAILS,

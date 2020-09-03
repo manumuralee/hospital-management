@@ -48,18 +48,18 @@ class AddPatientPage extends React.Component {
         this.setState({ mode: mode, id: id });
         if (id && (mode === 'view' || mode === 'edit')) {
             this.props.getPatientById(id);
-            if(mode === 'view')  {
+            if (mode === 'view') {
                 this.setState({ viewMode: true });
             }
         }
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {        
+    static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps && !prevState.hasData && nextProps.patient && nextProps.patient.hasData) {
-            const { patient } = nextProps;            
+            const { patient } = nextProps;
             return {
                 patient: patient,
-                hasData: true                
+                hasData: true
             };
         }
         return null;
@@ -147,7 +147,7 @@ class AddPatientPage extends React.Component {
         }
         return (
             <div>
-               <div className="container">
+                <div className="container">
                     <h2>{mode === 'edit' ? 'Edit Patient' : mode === 'view' ? 'View Patient' : 'Add Patient'}</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className="messages"></div>
@@ -179,7 +179,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.firstName ? ' has-error' : '')}>
                                         <label htmlFor="firstName">First Name</label>
-                                        <input type="text" className="form-control" name="firstName" value={patient.firstName} onChange={this.handleChange} disabled={this.state.viewMode}  />
+                                        <input type="text" className="form-control" name="firstName" value={patient.firstName} onChange={this.handleChange} disabled={this.state.viewMode} />
                                         {submitted && !patient.firstName &&
                                             <div className="help-block">First Name is required</div>
                                         }
@@ -189,9 +189,9 @@ class AddPatientPage extends React.Component {
                                     <div className={'form-group pt-4' + (submitted && !patient.gender ? ' has-error' : '')}>
                                         <label htmlFor="gender">Gender</label>
                                         &nbsp;&nbsp;Female
-                                                <input ref="input1" type="radio" name="gender" value='F' checked={patient.gender === 'F'} onChange={this.handleChange} disabled={this.state.viewMode}  />
+                                                <input ref="input1" type="radio" name="gender" value='F' checked={patient.gender === 'F'} onChange={this.handleChange} disabled={this.state.viewMode} />
                                             &nbsp;&nbsp;Male
-                                                <input ref="input2" type="radio" name="gender" value='M' checked={patient.gender === 'M'} onChange={this.handleChange} disabled={this.state.viewMode}  />
+                                                <input ref="input2" type="radio" name="gender" value='M' checked={patient.gender === 'M'} onChange={this.handleChange} disabled={this.state.viewMode} />
 
 
                                         {submitted && !patient.gender &&
@@ -206,7 +206,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.age ? ' has-error' : '')}>
                                         <label htmlFor="age">Age</label>
-                                        <input type="text" className="form-control" name="age" value={patient.age} onChange={this.handleChange} disabled={this.state.viewMode}  />
+                                        <input type="text" className="form-control" name="age" value={patient.age} onChange={this.handleChange} disabled={this.state.viewMode} />
                                         {submitted && !patient.age &&
                                             <div className="help-block">Age is required</div>
                                         }
@@ -386,7 +386,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className="form-group">
                                         {mode !== 'view' && <button className="btn btn-primary">Submit</button>}
-                                        {addingPatient && 
+                                        {addingPatient &&
                                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                         }
                                         <Link to="/" className="btn btn-link">Cancel</Link>

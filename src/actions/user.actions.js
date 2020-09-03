@@ -1,8 +1,8 @@
+import axios from 'axios';
+import _ from 'lodash';
 import { userConstants } from '../constants';
 import { history } from '../helpers';
 import { alertActions } from './';
-import axios from 'axios';
-import _ from 'lodash';
 
 const json_server_url = 'http://localhost:3004';
 
