@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { userActions } from '../actions';
+import { alertActions, userActions } from '../actions';
+import { history } from '../helpers';
+
 
 
 class LoginPage extends React.Component {
@@ -19,6 +21,11 @@ class LoginPage extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        history.listen((location, action) => {
+            // clear alert on location change
+            this.props.clearAlerts();
+        });
     }
 
     handleChange(e) {
@@ -37,11 +44,14 @@ class LoginPage extends React.Component {
     }
 
     render() {
-        const { loggingIn } = this.props;
+        const { loggingIn, alert } = this.props;
         const { username, password, submitted } = this.state;
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Login</h2>
+                {alert && alert.message &&
+                    <div className={`alert ${alert.type}`}>{alert.message}</div>
+                }
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <label htmlFor="username">Username</label>
@@ -71,14 +81,17 @@ class LoginPage extends React.Component {
 }
 
 function mapState(state) {
+    const { alert } = state;
     const { loggingIn } = state.authentication;
-    return { loggingIn };
+    return { loggingIn, alert };
 }
 
 const actionCreators = {
+    clearAlerts: alertActions.clear,
     login: userActions.login,
     logout: userActions.logout
 };
 
 const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
 export { connectedLoginPage as LoginPage };
+

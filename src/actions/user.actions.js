@@ -21,10 +21,15 @@ function login(username, password) {
 
         axios.get(json_server_url + '/users?username=' + username + '&password=' + password)
             .then(
-                user => {
-                    dispatch(success(user.data));
-                    localStorage.setItem('user', JSON.stringify(user.data));
-                    history.push('/');
+                res => {
+                    if (res && res.data && res.data.length > 0) {
+                        dispatch(success(res.data));
+                        localStorage.setItem('user', JSON.stringify(res.data));
+                        history.push('/');
+                    } else {
+                        dispatch(failure({error : 'Invalid Credentials'}));
+                        dispatch(alertActions.error('Invalid Credentials'));
+                    }
                 },
                 error => {
                     dispatch(failure(error));
@@ -55,7 +60,7 @@ function register(user) {
                                 .then(
                                     res => {
                                         dispatch(success());
-                                        history.push('/login');
+                                        //history.push('/login');
                                         dispatch(alertActions.success('Registration successful'));
                                     },
                                     error => {
