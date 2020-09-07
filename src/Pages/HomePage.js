@@ -37,7 +37,7 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { user, patients } = this.props;
+        const { patients } = this.props;
         console.log(patients);
         return (
             <div>
@@ -66,9 +66,9 @@ class HomePage extends React.Component {
 }
 
 function mapState(state) {
-    const { patients, authentication } = state;
-    const { user } = authentication;
-    return { user, patients };
+    const { patients } = state;
+    //const { user } = authentication;
+    return { patients };
 }
 
 
@@ -79,8 +79,9 @@ const actionCreators = {
 
 function ActionLinkComponent(props) {
     return (<span>
-        <Link className="btn btn-primary mr-2" to={`/patients/view/${props.value}`} >View</Link>
         <Link className="btn btn-outline-primary mr-2" to={`/patients/edit/${props.value}`} >Edit</Link>
+        <Link className="btn btn-primary mr-2" to={`/patients/view/${props.value}`} >Details</Link>
+        
     </span>
     );
 }

@@ -170,7 +170,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.surName ? ' has-error' : '')}>
                                         <label htmlFor="surName">SurName</label>
-                                        <input type="text" className="form-control" name="surName" value={patient.surName} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="surName" value={patient.surName} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.surName &&
                                             <div className="help-block">SurName is required</div>
                                         }
@@ -179,7 +179,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.firstName ? ' has-error' : '')}>
                                         <label htmlFor="firstName">First Name</label>
-                                        <input type="text" className="form-control" name="firstName" value={patient.firstName} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="firstName" value={patient.firstName} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.firstName &&
                                             <div className="help-block">First Name is required</div>
                                         }
@@ -189,9 +189,9 @@ class AddPatientPage extends React.Component {
                                     <div className={'form-group pt-4' + (submitted && !patient.gender ? ' has-error' : '')}>
                                         <label htmlFor="gender">Gender</label>
                                         &nbsp;&nbsp;Female
-                                                <input ref="input1" type="radio" name="gender" value='F' checked={patient.gender === 'F'} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                                <input ref="input1" type="radio" name="gender" value='F' checked={patient.gender === 'F'} onChange={this.handleChange} disabled={viewMode} />
                                             &nbsp;&nbsp;Male
-                                                <input ref="input2" type="radio" name="gender" value='M' checked={patient.gender === 'M'} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                                <input ref="input2" type="radio" name="gender" value='M' checked={patient.gender === 'M'} onChange={this.handleChange} disabled={viewMode} />
 
 
                                         {submitted && !patient.gender &&
@@ -206,7 +206,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.age ? ' has-error' : '')}>
                                         <label htmlFor="age">Age</label>
-                                        <input type="text" className="form-control" name="age" value={patient.age} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="age" value={patient.age} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.age &&
                                             <div className="help-block">Age is required</div>
                                         }
@@ -215,7 +215,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.meritialStatus ? ' has-error' : '')}>
                                         <label htmlFor="meritialStatus">Meritial Status</label>
-                                        <select className="form-control" name="meritialStatus" value={patient.meritialStatus || ''} onChange={this.handleChange} disabled={this.state.viewMode} >
+                                        <select className="form-control" name="meritialStatus" value={patient.meritialStatus || ''} onChange={this.handleChange} disabled={viewMode} >
                                             <option value="">Select</option>
                                             <option value="Married">Married</option>
                                             <option value="Single">Single</option>
@@ -228,7 +228,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.dob ? ' has-error' : '')}>
                                         <label htmlFor="dob">Date of Birth</label>
-                                        <input type="date" className="form-control" name="dob" value={patient.dob} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="date" className="form-control" name="dob" value={patient.dob} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.dob &&
                                             <div className="help-block">Date of Birth is required</div>
                                         }
@@ -241,7 +241,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && (!patient.emailAddress || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(patient.emailAddress)) ? ' has-error' : '')}>
                                         <label htmlFor="emailAddress">Email Address</label>
-                                        <input type="text" className="form-control" name="emailAddress" value={patient.emailAddress} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="emailAddress" value={patient.emailAddress} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.emailAddress &&
                                             <div className="help-block">Email Address is required</div>
                                         }
@@ -253,7 +253,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && (!patient.phoneNumber || patient.phoneNumber.length !== 10) ? ' has-error' : '')}>
                                         <label htmlFor="phoneNumber">Phone Number</label>
-                                        <input type="text" pattern="\d*" maxLength="10" className="form-control" name="phoneNumber" value={patient.phoneNumber} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" pattern="\d*" maxLength="10" className="form-control" name="phoneNumber" value={patient.phoneNumber} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.phoneNumber &&
                                             <div className="help-block">Phone Number is required</div>
                                         }
@@ -265,7 +265,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.nationality ? ' has-error' : '')}>
                                         <label htmlFor="nationality">Nationality</label>
-                                        <input type="text" className="form-control" name="nationality" value={patient.nationality} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="nationality" value={patient.nationality} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.nationality &&
                                             <div className="help-block">Nationality is required</div>
                                         }
@@ -278,7 +278,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.stateId ? ' has-error' : '')}>
                                         <label htmlFor="stateId">State</label>
-                                        <input type="text" className="form-control" name="stateId" value={patient.stateId} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="stateId" value={patient.stateId} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.stateId &&
                                             <div className="help-block">State is required</div>
                                         }
@@ -287,7 +287,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.occupation ? ' has-error' : '')}>
                                         <label htmlFor="occupation">Occupation</label>
-                                        <input type="text" className="form-control" name="occupation" value={patient.occupation} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="occupation" value={patient.occupation} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.occupation &&
                                             <div className="help-block">Occupation is required</div>
                                         }
@@ -296,7 +296,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.address ? ' has-error' : '')}>
                                         <label htmlFor="address">Address</label>
-                                        <input type="text" className="form-control" name="address" value={patient.address} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="address" value={patient.address} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.address &&
                                             <div className="help-block">Address is required</div>
                                         }
@@ -316,7 +316,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.kinName ? ' has-error' : '')}>
                                         <label htmlFor="kinName">Kin Name</label>
-                                        <input type="text" className="form-control" name="kinName" value={patient.kinName} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="kinName" value={patient.kinName} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.kinName &&
                                             <div className="help-block">Kin Name is required</div>
                                         }
@@ -325,7 +325,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.kinRelation ? ' has-error' : '')}>
                                         <label htmlFor="kinRelation">Kin Relation</label>
-                                        <input type="text" className="form-control" name="kinRelation" value={patient.kinRelation} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="kinRelation" value={patient.kinRelation} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.kinRelation &&
                                             <div className="help-block">Kin Relation is required</div>
                                         }
@@ -334,7 +334,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && (!patient.kinPhoneNumber || patient.kinPhoneNumber.length !== 10) ? ' has-error' : '')}>
                                         <label htmlFor="kinPhoneNumber">Kin Phone Number</label>
-                                        <input type="text" pattern="\d*" maxLength="10" className="form-control" name="kinPhoneNumber" value={patient.kinPhoneNumber} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" pattern="\d*" maxLength="10" className="form-control" name="kinPhoneNumber" value={patient.kinPhoneNumber} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.kinPhoneNumber &&
                                             <div className="help-block">Kin Phone Number is required</div>
                                         }
@@ -350,7 +350,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && (!patient.kinEmailAddress || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(patient.kinEmailAddress)) ? ' has-error' : '')}>
                                         <label htmlFor="kinEmailAddress">Kin Email Address</label>
-                                        <input type="text" className="form-control" name="kinEmailAddress" value={patient.kinEmailAddress} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="kinEmailAddress" value={patient.kinEmailAddress} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.kinEmailAddress &&
                                             <div className="help-block">Kin Email Address is required</div>
                                         }
@@ -362,7 +362,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.kinOccupation ? ' has-error' : '')}>
                                         <label htmlFor="kinOccupation">Kin Occupation</label>
-                                        <input type="text" className="form-control" name="kinOccupation" value={patient.kinOccupation} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="kinOccupation" value={patient.kinOccupation} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.kinOccupation &&
                                             <div className="help-block">Kin Occupation is required</div>
                                         }
@@ -371,7 +371,7 @@ class AddPatientPage extends React.Component {
                                 <div className="col-sm-4">
                                     <div className={'form-group' + (submitted && !patient.kinAddress ? ' has-error' : '')}>
                                         <label htmlFor="kinAddress">Kin Address</label>
-                                        <input type="text" className="form-control" name="kinAddress" value={patient.kinAddress} onChange={this.handleChange} disabled={this.state.viewMode} />
+                                        <input type="text" className="form-control" name="kinAddress" value={patient.kinAddress} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.kinAddress &&
                                             <div className="help-block">Kin Address is required</div>
                                         }
@@ -387,9 +387,9 @@ class AddPatientPage extends React.Component {
                                     <div className="form-group">
                                         {mode !== 'view' && <button className="btn btn-primary">Submit</button>}
                                         {addingPatient &&
-                                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                            <img alt="aa" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                         }
-                                        <Link to="/" className="btn btn-link">Cancel</Link>
+                                        &nbsp;&nbsp;<Link to="/" className="btn btn btn-danger">Cancel</Link>
                                     </div>
                                 </div>
                                 <div className="col-sm-4">

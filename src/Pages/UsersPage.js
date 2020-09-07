@@ -41,7 +41,7 @@ class UsersPage extends React.Component {
                                         {
                                             userRow.deleting ? <em> - Deleting...</em>
                                                 : userRow.deleteError ? <span className="text-danger"> - ERROR: {userRow.deleteError}</span>
-                                        : <span>{user && user[0] && user[0].username  !== userRow.username && <a onClick={this.handleDeleteUser(userRow.id)}>Delete</a>}</span>
+                                        : <span>{user && user[0] && user[0].username  !== userRow.username && <button className="btn btn-danger" onClick={this.handleDeleteUser(userRow.id)}>Delete</button>}</span>
                                         }
                                     </td>
                                 </tr>

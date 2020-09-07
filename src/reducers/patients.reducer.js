@@ -87,7 +87,7 @@ export function patients(state = initialState, action) {
         ...state,
         patient: {
           ...state.patient,
-          [action.name]: [action.value]
+          [action.name]: action.value
         }
       }
     case patientConstants.LOAD_PATIENT_DETAILS: {

@@ -17,7 +17,7 @@ export const userActions = {
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
-        const user = { username, password };
+        // const user = { username, password };
 
         axios.get(json_server_url + '/users?username=' + username + '&password=' + password)
             .then(

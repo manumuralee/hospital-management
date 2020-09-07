@@ -8,11 +8,8 @@ const json_server_url = 'http://localhost:3004';
 export const patientActions = {
     addPatient,
     getAllPatients,
-    getPatientById,
-    onPatientInputChange,
-    loadPatientDetails,
-    editPatient,
-    delete: _delete
+    getPatientById, 
+    editPatient   
 };
 
 
@@ -20,10 +17,10 @@ function addPatient(patient) {
     return dispatch => {
         dispatch(request(patient));
 
-        axios.post(json_server_url + '/patients', patient)
+        return axios.post(json_server_url + '/patients', patient)
             .then(
                 res => {
-                    dispatch(success());
+                    dispatch(success(patient));
                     history.push('/');
                     dispatch(alertActions.success('Registration successful'));
                 },
@@ -43,7 +40,7 @@ function getAllPatients() {
     return dispatch => {
         dispatch(request());
 
-        axios.get(json_server_url + '/patients')
+        return axios.get(json_server_url + '/patients')
             .then(
                 patients => {
                     dispatch(success(patients.data))
@@ -63,7 +60,7 @@ function getPatientById(id) {
     return dispatch => {
         dispatch(request(id));
 
-        axios.get(json_server_url + '/patients/' + id)
+        return axios.get(json_server_url + '/patients/' + id)
             .then(
                 res => {
                     dispatch(success(res.data))
@@ -79,11 +76,11 @@ function getPatientById(id) {
     function failure(error) { return { type: patientConstants.GET_PATIENT_FAILURE, error } }
 }
 
-function _delete(id) {
+/*function _delete(id) {
     return dispatch => {
         dispatch(request(id));
 
-        axios.delete(json_server_url + '/patients/' + id)
+        return axios.delete(json_server_url + '/patients/' + id)
             .then(
                 patient => {
                     dispatch(success(id));
@@ -98,13 +95,13 @@ function _delete(id) {
     function success(id) { return { type: patientConstants.DELETE_SUCCESS, id } }
     function failure(id, error) { return { type: patientConstants.DELETE_FAILURE, id, error } }
 
-}
+}*/
 
 
 function editPatient(patient) {
     return dispatch => {
         dispatch(request(patient));      
-        axios.put(json_server_url + '/patients/' + patient.id, patient)
+        return axios.put(json_server_url + '/patients/' + patient.id, patient)
             .then(
                 res => {                   
                     dispatch(success());
@@ -122,19 +119,3 @@ function editPatient(patient) {
     function success(patient) { return { type: patientConstants.EDIT_PATIENT_SUCCESS, patient } }
     function failure(error) { return { type: patientConstants.EDIT_PATIENT_FAILURE, error } }
 }
-
-function onPatientInputChange(name, value) {
-    return {
-        type: patientConstants.INPUT_VALUE_CHANGE,
-        name: name,
-        value: value
-    }
-}
-
-function loadPatientDetails(patient) {
-    return {
-        type: patientConstants.LOAD_PATIENT_DETAILS,
-        patient: patient
-    }
-}
-
