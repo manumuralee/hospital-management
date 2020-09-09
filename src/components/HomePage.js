@@ -37,8 +37,7 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { patients } = this.props;
-        console.log(patients);
+        const { patients } = this.props;       
         return (
             <div>
                 <div className="container">

@@ -1,7 +1,5 @@
 import { alertConstants } from '../constants';
 import { alertActions } from './alert.actions';
-import { iteratee } from 'lodash';
-import expectExport from 'expect';
 
 describe('alert actions', () => {
     it('should create an action to alert success', () => {

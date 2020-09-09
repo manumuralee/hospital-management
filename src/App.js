@@ -3,10 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Router, Switch } from 'react-router-dom';
 import { alertActions } from './actions';
-import { PrivateRoute } from './components';
+import { AddPatientPage, HomePage, LoginPage, RegisterPage, UsersPage } from './Components';
 import { history } from './helpers';
 import Layout from './Layouts/Layout';
-import { AddPatientPage, HomePage, LoginPage, RegisterPage, UsersPage } from './Pages';
+import { PrivateRoute } from './router';
+
 
 
 class App extends React.Component {
@@ -42,8 +43,7 @@ class App extends React.Component {
                     <div className="col-sm-8 col-sm-offset-2">
                         {alert && alert.message &&
                             <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                        {console.log("LOGGEDIN" + loggedIn)}
+                        }                        
                         {
                             true ? <Layout>{routes}</Layout> : routes
                         }

@@ -1,46 +1,21 @@
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import EnzymeAdapter from 'enzyme-adapter-react-16';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import { Router } from 'react-router-dom';
 import App from './App';
-import Layout from './Layouts/Layout';
-import HospitalNavbar from './Layouts/HospitalNavbar';
 
-const initialState = {
-  username: '',
-  password: '',
-  submitted: false,
-  authentication: {
-    loggingIn: false,
-    loggedIn: false,
-    user : {}
-  },
-  alert : ''
+const defaultProp = {};
+const setup = (props = {}) => {
+  const setupProps = { ...defaultProp, ...props };
+  return shallow(<App {...setupProps} />);
 };
-const props = {
-  loggedIn: false,
-  user : {},
-  loggingIn: false,
-  login: jest.fn(),
-  logout: jest.fn()
-}
-let store;
-/*beforeEach(() => {
-  const mockStore = configureMockStore([thunk]);
-  store = mockStore(initialState);
-  shallow(<Layout></Layout>);
-  shallow(<HospitalNavbar store={store}/>);
-});*/
 
+Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 describe('<App />', () => {
-  /*it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<App store={store} />, div);
-  });*/
 
-  it('renders without crashing', () => {
-    //shallow(<App store={store} />);
+  it('renders render Routes', () => {
+    const wrapper = setup();
+    expect(wrapper.find(Router).length).toBe(1);
   });
 });

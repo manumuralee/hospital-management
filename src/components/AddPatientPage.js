@@ -67,8 +67,7 @@ class AddPatientPage extends React.Component {
 
     handleChange(event) {
         const { name, value } = event.target;
-        const { patient } = this.state;
-        console.log(name, value);
+        const { patient } = this.state;       
         this.setState({
             patient: {
                 ...patient,
@@ -204,12 +203,16 @@ class AddPatientPage extends React.Component {
 
                             <div className="row">
                                 <div className="col-sm-4">
-                                    <div className={'form-group' + (submitted && !patient.age ? ' has-error' : '')}>
+                                    <div className={'form-group' + (submitted && (!patient.age || !/^[0-9]/i.test(patient.age)) ? ' has-error' : '')}>
                                         <label htmlFor="age">Age</label>
-                                        <input type="text" className="form-control" name="age" value={patient.age} onChange={this.handleChange} disabled={viewMode} />
+                                        <input type="text" maxLength="3" className="form-control" name="age" value={patient.age} onChange={this.handleChange} disabled={viewMode} />
                                         {submitted && !patient.age &&
                                             <div className="help-block">Age is required</div>
                                         }
+                                        {submitted && !/^[0-9]/i.test(patient.age) &&
+                                            <div className="help-block">Invalid Age</div>
+                                        }
+                                        
                                     </div>
                                 </div>
                                 <div className="col-sm-4">

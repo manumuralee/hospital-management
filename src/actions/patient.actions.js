@@ -25,8 +25,8 @@ function addPatient(patient) {
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(failure(error.message));
+                    dispatch(alertActions.error(error.message));
                 }
             );
     };
@@ -46,7 +46,7 @@ function getAllPatients() {
                     dispatch(success(patients.data))
                 },
                 error => {
-                    dispatch(failure(error))
+                    dispatch(failure(error.message))
                 }
             );
     };
@@ -66,7 +66,7 @@ function getPatientById(id) {
                     dispatch(success(res.data))
                 },
                 error => {
-                    dispatch(failure(error))
+                    dispatch(failure(error.message))
                 }
             );
     };
@@ -104,13 +104,13 @@ function editPatient(patient) {
         return axios.put(json_server_url + '/patients/' + patient.id, patient)
             .then(
                 res => {                   
-                    dispatch(success());
+                    dispatch(success(patient));
                     history.push('/');
                     dispatch(alertActions.success('Edit successful'));
                 },
                 error => {                   
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(failure(error.message));
+                    dispatch(alertActions.error(error.message));
                 }
             );       
     };

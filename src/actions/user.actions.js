@@ -19,7 +19,7 @@ function login(username, password) {
         dispatch(request({ username }));
         // const user = { username, password };
 
-        axios.get(json_server_url + '/users?username=' + username + '&password=' + password)
+        return axios.get(json_server_url + '/users?username=' + username + '&password=' + password)
             .then(
                 res => {
                     if (res && res.data && res.data.length > 0) {
@@ -27,15 +27,13 @@ function login(username, password) {
                         localStorage.setItem('user', JSON.stringify(res.data));
                         history.push('/');
                     } else {
-                        dispatch(failure({error : 'Invalid Credentials'}));
+                        dispatch(failure({ error: 'Invalid Credentials' }));
                         dispatch(alertActions.error('Invalid Credentials'));
                     }
-                },
-                error => {
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
-                }
-            );
+                }).catch(error => {
+                    dispatch(failure(error.message));
+                    dispatch(alertActions.error(error.message));
+                });
     };
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
@@ -52,33 +50,29 @@ function register(user) {
     return dispatch => {
         dispatch(request(user));
         if (user && _.trim(user.username) !== "") {
-            axios.get(json_server_url + '/users?username=' + user.username)
+            return axios.get(json_server_url + '/users?username=' + user.username)
                 .then(
                     res => {
                         if (res === null || res.data === null || res.data.length <= 0) {
-                            axios.post(json_server_url + '/users', user)
+                            return axios.post(json_server_url + '/users', user)
                                 .then(
                                     res => {
-                                        dispatch(success());
+                                        dispatch(success(user));
                                         //history.push('/login');
                                         dispatch(alertActions.success('Registration successful'));
-                                    },
-                                    error => {
-                                        dispatch(failure(error));
-                                        dispatch(alertActions.error(error));
-                                    }
-                                );
+                                    }).catch(error => {
+                                        dispatch(failure(error.message));
+                                        dispatch(alertActions.error(error.message));
+                                    })
                         } else {
                             dispatch(alertActions.error('User Name Already Exists!'));
                             dispatch(failure('User Name Already Exists!'));
                         }
 
-                    },
-                    error => {
-                        dispatch(failure(error));
-                        dispatch(alertActions.error(error));
-                    }
-                );
+                    }).catch(error => {
+                        dispatch(failure(error.message));
+                        dispatch(alertActions.error(error.message));
+                    });
         } else {
             dispatch(alertActions.error('Invalid Use Name'));
             dispatch(failure('Invalid Use Name'));
@@ -95,15 +89,14 @@ function getAll() {
     return dispatch => {
         dispatch(request());
 
-        axios.get(json_server_url + '/users')
+        return axios.get(json_server_url + '/users')
             .then(
                 res => {
                     dispatch(success(res.data))
-                },
-                error => {
-                    dispatch(failure(error))
-                }
-            );
+                }).catch(error => {
+                    dispatch(failure(error.message));
+                    dispatch(alertActions.error(error.message));
+                });
     };
 
     function request() { return { type: userConstants.GETALL_REQUEST } }
@@ -116,15 +109,14 @@ function _delete(id) {
     return dispatch => {
         dispatch(request(id));
 
-        axios.delete(json_server_url + '/users/' + id)
+        return axios.delete(json_server_url + '/users/' + id)
             .then(
                 user => {
                     dispatch(success(id));
-                },
-                error => {
-                    dispatch(failure(id, error));
-                }
-            );
+                }).catch(error => {
+                    dispatch(failure(id, error.message));
+                    dispatch(alertActions.error(error.message));
+                });
     };
 
     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
